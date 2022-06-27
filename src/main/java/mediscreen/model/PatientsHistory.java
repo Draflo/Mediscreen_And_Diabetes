@@ -1,10 +1,11 @@
 package mediscreen.model;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -12,15 +13,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document
+@Document(collection = "patientHistory")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientsNote {
+public class PatientsHistory {
+	
+	@Transient
+	public static final String IdAuto = "PatientsId";
 	
 	@Id
-	private String patientId;
+	private Long patientId;
 	
 	@NotBlank
 	private String firstName;
@@ -28,10 +32,7 @@ public class PatientsNote {
 	@NotBlank
 	private String lastName;
 	
-	private LocalDateTime creation;
-	
-	@NotBlank
-	private String note;
+	private List<Notes> notes;
 	
 
 }
