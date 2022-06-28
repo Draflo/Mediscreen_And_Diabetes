@@ -1,5 +1,6 @@
 package mediscreen.service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,25 @@ public class PatientsHistoryService {
 		return patientHistory.get();
 	}
 	
-	public PatientsHistory addNotes(String firstName, String lastName, Notes note) throws Exception {
+	public Notes getNotesByCreationDate(String firstName, String lastName, LocalDate creationDate) throws Exception {
 		Optional<PatientsHistory> patientsHistory = patientsHistoryRepository.findByFirstNameAndLastName(firstName, lastName);
-		patientsHistory.get().getNotes().add(note);
+		for (Notes notes : patientsHistory.get().getNotes()) {
+			if (notes.getCreationDate().equals(creationDate)) {
+				return notes;
+			}
+		}
+		return null;
+	}
+	
+	public PatientsHistory updateOrCreateNote(String firstName, String lastName, Notes noteUpdated) throws Exception {
+		Optional<PatientsHistory> patientsHistory = patientsHistoryRepository.findByFirstNameAndLastName(firstName, lastName);
+		for (Notes notes : patientsHistory.get().getNotes()) {
+			if (notes.getCreationDate().equals(noteUpdated.getCreationDate())) {
+				notes.setNote(noteUpdated.getNote());
+				return patientsHistoryRepository.save(patientsHistory.get());
+			}
+		}
+		patientsHistory.get().getNotes().add(noteUpdated);
 		return patientsHistoryRepository.save(patientsHistory.get());
 	}
 

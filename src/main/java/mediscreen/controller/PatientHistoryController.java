@@ -48,9 +48,9 @@ public class PatientHistoryController {
 	}
 	
 	@PutMapping("/patientHistory")
-	public ResponseEntity<Object> addPatientNote(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestBody Notes notes) throws Exception {
+	public ResponseEntity<Object> updateOrAddNote(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestBody Notes notes) throws Exception {
 		try {
-			PatientsHistory createdNotes = patientsHistoryService.addNotes(firstName, lastName, notes);
+			PatientsHistory createdNotes = patientsHistoryService.updateOrCreateNote(firstName, lastName, notes);
 			return ResponseEntity.status(HttpStatus.CREATED).body(createdNotes);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
