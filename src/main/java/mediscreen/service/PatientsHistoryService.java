@@ -1,6 +1,7 @@
 package mediscreen.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class PatientsHistoryService {
 			throw new Exception();
 		}
 		return patientHistory.get();
+	}
+	
+	public List<PatientsHistory> getAllPatientsHistories() {
+		List<PatientsHistory> getAll = patientsHistoryRepository.findAll();
+		return getAll;
 	}
 	
 	public Notes getNotesByCreationDate(String firstName, String lastName, LocalDate creationDate) throws Exception {

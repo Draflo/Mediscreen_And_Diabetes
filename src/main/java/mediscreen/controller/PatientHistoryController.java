@@ -1,5 +1,7 @@
 package mediscreen.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,12 @@ public class PatientHistoryController {
 	public PatientsHistory getPatientsHistoryByFirstAndLastName(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName ) throws Exception {
 		PatientsHistory patientsHistory = patientsHistoryService.getPatientsHistory(firstName, lastName);
 		return patientsHistory;
+	}
+	
+	@GetMapping("/allPatientHistory")
+	public List<PatientsHistory> getAllPatientsHistory() {
+		List<PatientsHistory> getAll = patientsHistoryService.getAllPatientsHistories();
+		return getAll;
 	}
 	
 	@PostMapping("/patientHistory/add")
