@@ -1,10 +1,13 @@
 package mediscreen.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +37,18 @@ public class PatientHistoryController {
 	public PatientsHistory getPatientsHistoryByFirstAndLastName(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName ) throws Exception {
 		PatientsHistory patientsHistory = patientsHistoryService.getPatientsHistory(firstName, lastName);
 		return patientsHistory;
+	}
+	
+	@GetMapping("/patientHistory/{id}")
+	public PatientsHistory getPatientsHistoryById(@PathVariable Long id) throws Exception {
+		PatientsHistory patientsHistory = patientsHistoryService.getPatientsHistoryById(id);
+		return patientsHistory;
+	}
+	
+	@GetMapping("/allPatientHistory")
+	public List<PatientsHistory> getAllPatientsHistory() {
+		List<PatientsHistory> getAll = patientsHistoryService.getAllPatientsHistories();
+		return getAll;
 	}
 	
 	@PostMapping("/patientHistory/add")
