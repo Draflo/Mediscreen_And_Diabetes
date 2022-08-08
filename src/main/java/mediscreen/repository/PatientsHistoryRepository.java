@@ -11,4 +11,5 @@ import mediscreen.model.PatientsHistory;
 public interface PatientsHistoryRepository extends MongoRepository<PatientsHistory, String>{
 
 	Optional<PatientsHistory> findByFirstNameAndLastName(String firstName, String lastName);
+	Optional<PatientsHistory> findByPatientId(Long patientId);
 }
